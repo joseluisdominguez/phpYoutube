@@ -1,0 +1,17 @@
+version: '3'
+services:
+    web:
+        image: nginx:latest
+        container_name: nginxContainer
+        ports:
+            - "8080:80"
+        volumes:
+            - ${PROJECT_PATH}:/etc/nginx/html
+            - ./site.conf:/etc/nginx/conf.d/site.conf
+        links:
+            - php
+    php:
+        build: fpm
+        container_name: phpContainer
+        volumes:
+            - ${PROJECT_PATH}:/etc/nginx/html
